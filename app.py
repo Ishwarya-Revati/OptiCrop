@@ -1,30 +1,47 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 import joblib
+import pandas as pd
 
 app = Flask(__name__)
 
-# Load trained model and label encoder
-model = joblib.load("model/crop_model.pkl", mmap_mode=None)
-encoder = joblib.load("model/label_encoder.pkl", mmap_mode=None)
+# ==========================
+# Load Model
+# ==========================
+
+model = joblib.load("model/crop_model.pkl")
+encoder = joblib.load("model/label_encoder.pkl")
+
+
+# ==========================
+# Home Page
+# ==========================
 
 @app.route("/")
 def home():
     return render_template("index.html")
 
+
+# ==========================
+# Prediction Route
+# ==========================
+
 @app.route("/predict", methods=["POST"])
 def predict():
-    try:
-        # Get input values
-        N = float(request.form["N"])
-        P = float(request.form["P"])
-        K = float(request.form["K"])
-        temperature = float(request.form["temperature"])
-        humidity = float(request.form["humidity"])
-        ph = float(request.form["ph"])
-        rainfall = float(request.form["rainfall"])
 
-        # Make prediction
-        import pandas as pd
+    try:
+
+        # Read Input Values
+
+        N = float(request.form.get("N"))
+        P = float(request.form.get("P"))
+        K = float(request.form.get("K"))
+
+        temperature = float(request.form.get("temperature"))
+        humidity = float(request.form.get("humidity"))
+        ph = float(request.form.get("ph"))
+        rainfall = float(request.form.get("rainfall"))
+
+        # Create DataFrame
 
         input_data = pd.DataFrame([{
             "N": N,
@@ -36,28 +53,54 @@ def predict():
             "rainfall": rainfall
         }])
 
+        # Prediction
+
         prediction = model.predict(input_data)
 
-        # Convert prediction back to crop name
         crop = encoder.inverse_transform(prediction)[0]
 
-        return render_template(
-            "index.html",
-            prediction_text=f"🌱 Recommended Crop: {crop}",
-            N=N,
-            P=P,
-            K=K,
-            temperature=temperature,
-            humidity=humidity,
-            ph=ph,
-            rainfall=rainfall
-        )
+        # Return JSON
+
+        return jsonify({
+
+            "success": True,
+
+            "crop": crop,
+
+            "summary": {
+
+                "Nitrogen": N,
+
+                "Phosphorus": P,
+
+                "Potassium": K,
+
+                "Temperature": temperature,
+
+                "Humidity": humidity,
+
+                "Soil pH": ph,
+
+                "Rainfall": rainfall
+
+            }
+
+        })
 
     except Exception as e:
-        return render_template(
-            "index.html",
-            prediction_text=f"Error: {e}"
-        )
+
+        return jsonify({
+
+            "success": False,
+
+            "message": str(e)
+
+        })
+
+
+# ==========================
+# Run Flask
+# ==========================
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)

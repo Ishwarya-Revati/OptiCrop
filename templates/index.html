@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>OptiCrop - Smart Crop Recommendation</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🌱 OptiCrop</h1>
+    <h3>Smart Agricultural Production Optimization Engine</h3>
+
+    <p style="margin-bottom:20px;color:#666;">
+    Enter the soil and weather parameters below to receive an AI-powered crop recommendation.
+    </p>
+
+    <form action="/predict" method="POST">
+
+        <input type="number" step="any" name="N" placeholder="Nitrogen (N)" required>
+
+        <input type="number" step="any" name="P" placeholder="Phosphorus (P)" required>
+
+        <input type="number" step="any" name="K" placeholder="Potassium (K)" required>
+
+        <input type="number" step="any" name="temperature" placeholder="Temperature (°C)" required>
+
+        <input type="number" step="any" name="humidity" placeholder="Humidity (%)" required>
+
+        <input type="number" step="any" name="ph" placeholder="Soil pH" required>
+
+        <input type="number" step="any" name="rainfall" placeholder="Rainfall (mm)" required>
+
+        <button type="submit">Predict Crop</button>
+
+    </form>
+
+    {% if prediction_text %}
+        <h2>{{ prediction_text }}</h2>
+    {% endif %}
+
+    {% if prediction_text %}
+    <hr style="margin-top:20px;">
+
+    <h3>Input Summary</h3>
+
+    <table style="width:100%;margin-top:10px;text-align:left;">
+    <tr><td><b>Nitrogen</b></td><td>{{ N }}</td></tr>
+    <tr><td><b>Phosphorus</b></td><td>{{ P }}</td></tr>
+    <tr><td><b>Potassium</b></td><td>{{ K }}</td></tr>
+    <tr><td><b>Temperature</b></td><td>{{ temperature }} °C</td></tr>
+    <tr><td><b>Humidity</b></td><td>{{ humidity }} %</td></tr>
+    <tr><td><b>Soil pH</b></td><td>{{ ph }}</td></tr>
+    <tr><td><b>Rainfall</b></td><td>{{ rainfall }} mm</td></tr>
+    </table>
+    {% endif %}
+
+</div>
+
+</body>
+</html>

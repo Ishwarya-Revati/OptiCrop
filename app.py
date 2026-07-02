@@ -24,7 +24,19 @@ def predict():
         rainfall = float(request.form["rainfall"])
 
         # Make prediction
-        prediction = model.predict([[N, P, K, temperature, humidity, ph, rainfall]])
+        import pandas as pd
+
+        input_data = pd.DataFrame([{
+            "N": N,
+            "P": P,
+            "K": K,
+            "temperature": temperature,
+            "humidity": humidity,
+            "ph": ph,
+            "rainfall": rainfall
+        }])
+
+        prediction = model.predict(input_data)
 
         # Convert prediction back to crop name
         crop = encoder.inverse_transform(prediction)[0]
@@ -48,4 +60,4 @@ def predict():
         )
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()

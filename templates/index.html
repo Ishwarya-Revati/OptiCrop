@@ -1,62 +1,267 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <title>OptiCrop - Smart Crop Recommendation</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>OptiCrop AI | Smart Agricultural Production Optimization Engine</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
 <body>
 
-<div class="container">
+<div class="overlay"></div>
 
-    <h1>🌱 OptiCrop</h1>
-    <h3>Smart Agricultural Production Optimization Engine</h3>
+<!-- Navigation -->
 
-    <p style="margin-bottom:20px;color:#666;">
-    Enter the soil and weather parameters below to receive an AI-powered crop recommendation.
+<nav class="navbar">
+
+    <div class="brand">
+        <i class="bi bi-tree-fill"></i>
+        <span>OptiCrop AI</span>
+    </div>
+
+    <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#predict">Predict</a></li>
+        <li><a href="#about">About</a></li>
+    </ul>
+
+</nav>
+
+<!-- Header -->
+
+<header>
+
+    <div class="logo">
+        <i class="bi bi-tree-fill"></i>
+    </div>
+
+    <h1>
+
+        OptiCrop AI
+
+        <span class="badge">
+
+            AI Powered
+
+        </span>
+
+    </h1>
+
+    <p>
+
+        Smart Agricultural Production Optimization Engine
+
     </p>
 
-    <form action="/predict" method="POST">
+</header>
 
-        <input type="number" step="any" name="N" placeholder="Nitrogen (N)" required>
+<div class="container">
 
-        <input type="number" step="any" name="P" placeholder="Phosphorus (P)" required>
+    <!-- Left Panel -->
 
-        <input type="number" step="any" name="K" placeholder="Potassium (K)" required>
+    <div class="left-panel" id="predict">
 
-        <input type="number" step="any" name="temperature" placeholder="Temperature (°C)" required>
+        <h2>
+            <i class="bi bi-cpu-fill"></i>
+            AI Crop Recommendation
+        </h2>
 
-        <input type="number" step="any" name="humidity" placeholder="Humidity (%)" required>
+        <p class="description">
 
-        <input type="number" step="any" name="ph" placeholder="Soil pH" required>
+            Predict the most suitable crop using Machine Learning based on soil nutrients,
+            temperature, humidity, soil pH and rainfall.
 
-        <input type="number" step="any" name="rainfall" placeholder="Rainfall (mm)" required>
+        </p>
 
-        <button type="submit">Predict Crop</button>
+        <!-- Statistics -->
 
-    </form>
+        <div class="stats">
 
-    {% if prediction_text %}
-        <h2>{{ prediction_text }}</h2>
-    {% endif %}
+            <div class="stat-card">
+                <h2>99.32%</h2>
+                <p>Model Accuracy</p>
+            </div>
 
-    {% if prediction_text %}
-    <hr style="margin-top:20px;">
+            <div class="stat-card">
+                <h2>2200</h2>
+                <p>Dataset Records</p>
+            </div>
 
-    <h3>Input Summary</h3>
+            <div class="stat-card">
+                <h2>22</h2>
+                <p>Crop Types</p>
+            </div>
 
-    <table style="width:100%;margin-top:10px;text-align:left;">
-    <tr><td><b>Nitrogen</b></td><td>{{ N }}</td></tr>
-    <tr><td><b>Phosphorus</b></td><td>{{ P }}</td></tr>
-    <tr><td><b>Potassium</b></td><td>{{ K }}</td></tr>
-    <tr><td><b>Temperature</b></td><td>{{ temperature }} °C</td></tr>
-    <tr><td><b>Humidity</b></td><td>{{ humidity }} %</td></tr>
-    <tr><td><b>Soil pH</b></td><td>{{ ph }}</td></tr>
-    <tr><td><b>Rainfall</b></td><td>{{ rainfall }} mm</td></tr>
-    </table>
-    {% endif %}
+        </div>
+
+        <!-- Form -->
+
+        <form action="/predict" method="POST">
+
+            <input type="number" step="any" name="N" placeholder="Nitrogen (N)" required>
+
+            <input type="number" step="any" name="P" placeholder="Phosphorus (P)" required>
+
+            <input type="number" step="any" name="K" placeholder="Potassium (K)" required>
+
+            <input type="number" step="any" name="temperature" placeholder="Temperature (°C)" required>
+
+            <input type="number" step="any" name="humidity" placeholder="Humidity (%)" required>
+
+            <input type="number" step="any" name="ph" placeholder="Soil pH" required>
+
+            <input type="number" step="any" name="rainfall" placeholder="Rainfall (mm)" required>
+
+            <button type="submit">
+
+                <i class="bi bi-search"></i>
+
+                Predict Crop
+
+            </button>
+
+        </form>
+
+        <!-- How It Works -->
+
+        <div class="how-it-works" id="about">
+
+            <h2>How It Works</h2>
+
+            <div class="steps">
+
+                <div class="step">
+
+                    <i class="bi bi-input-cursor-text"></i>
+
+                    <h3>Input Data</h3>
+
+                    <p>Enter soil and environmental values.</p>
+
+                </div>
+
+                <div class="step">
+
+                    <i class="bi bi-cpu"></i>
+
+                    <h3>AI Analysis</h3>
+
+                    <p>Random Forest analyzes the inputs.</p>
+
+                </div>
+
+                <div class="step">
+
+                    <i class="bi bi-tree"></i>
+
+                    <h3>Recommendation</h3>
+
+                    <p>Get the most suitable crop instantly.</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Right Panel -->
+
+    <div class="right-panel">
+
+        <div class="feature-card">
+
+            <h3>⚡ Instant Prediction</h3>
+
+            <p>Real-time crop recommendation using Artificial Intelligence.</p>
+
+        </div>
+
+        <div class="feature-card">
+
+            <h3>🎯 99.32% Accuracy</h3>
+
+            <p>Powered by Random Forest Machine Learning.</p>
+
+        </div>
+
+        <div class="feature-card">
+
+            <h3>🌱 Sustainable Farming</h3>
+
+            <p>Supports better agricultural decision making.</p>
+
+        </div>
+
+        {% if prediction_text %}
+
+        <div class="result-card">
+
+            <h2>🌾 Prediction Result</h2>
+
+            <div class="crop-name">
+
+                {{ prediction_text }}
+
+            </div>
+
+            <div class="success-message">
+
+                ✔ AI analysis completed successfully.
+
+            </div>
+
+            <h3>Input Summary</h3>
+
+            <table>
+
+                <tr><td>Nitrogen</td><td>{{N}}</td></tr>
+                <tr><td>Phosphorus</td><td>{{P}}</td></tr>
+                <tr><td>Potassium</td><td>{{K}}</td></tr>
+                <tr><td>Temperature</td><td>{{temperature}} °C</td></tr>
+                <tr><td>Humidity</td><td>{{humidity}} %</td></tr>
+                <tr><td>Soil pH</td><td>{{ph}}</td></tr>
+                <tr><td>Rainfall</td><td>{{rainfall}} mm</td></tr>
+
+            </table>
+
+        </div>
+
+        {% endif %}
+
+    </div>
 
 </div>
 
+<footer>
+
+    <p>© 2026 OptiCrop AI</p>
+
+    <p>
+
+        Developed by
+
+        <strong>Pranati Sai Lakshmi Iswarya Revati</strong>
+
+    </p>
+
+</footer>
+
 </body>
+
 </html>

@@ -8,9 +8,16 @@ environmental conditions. The application combines a trained Random
 Forest model with a user-friendly Flask web interface to deliver quick
 and accurate crop recommendations.
 
+*Live Project:*
+https://opti-crop-ml.vercel.app/
+
+*Demo Video:*
+https://drive.google.com/file/d/1Q3SCxoky-bQEsOmt99DK90Ok6qiTKnV0/view?usp=drivesdk
+
 > **Status:** ✅ Live & Deployed\
 > **Model:** Random Forest Classifier\
 > **Deployment:** Vercel
+
 
 ------------------------------------------------------------------------
 
